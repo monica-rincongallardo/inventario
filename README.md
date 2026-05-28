@@ -198,6 +198,10 @@ Ejecutar la clase:
 ```text
 InventarioApplication
 ```
+Ubicado en:
+```text
+src/main/java/com/prueba/inventario
+```
 
 ## 6. Abrir el navegador
 
