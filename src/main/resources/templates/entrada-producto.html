@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Entrada Producto</title>
+</head>
+<body>
+
+<header>
+    <h1>Aumentar Inventario</h1>
+</header>
+
+<h3 th:text="${producto.nombre}"></h3>
+
+<form th:action="@{/guardar-entrada}" method="post">
+    <input type="hidden" name="idProducto" th:value="${producto.idProducto}">
+
+    <label>Cantidad</label>
+    <input type="number" name="cantidad">
+    <br>
+
+    <button type="submit">Guardar Entrada</button>
+</form>
+
+<a th:href="@{/inventario}">Regresar</a>
+
+</body>
+</html>

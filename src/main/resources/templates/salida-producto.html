@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Salida de Producto</title>
+</head>
+<body>
+<header>
+    <h1>Salida de Inventario</h1>
+</header>
+
+<h3 th:text="${producto.nombre}"></h3>
+
+<p>
+    Stock actual: <span th:text="${producto.stock}"></span>
+</p>
+
+<form th:action="@{/guardar-salida}" method="post">
+    <input type="hidden" name="idProducto" th:value="${producto.idProducto}">
+
+    <label>Cantidad</label>
+    <input type="number" name="cantidad">
+    <br>
+
+    <button type="submit">Guardar Salida</button>
+</form>
+
+<br>
+
+<a th:href="@{/inventario}">Regresar</a>
+
+</body>
+</html>

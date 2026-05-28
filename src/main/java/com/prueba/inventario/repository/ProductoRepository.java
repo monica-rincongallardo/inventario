@@ -1,0 +1,10 @@
+package com.prueba.inventario.repository;
+
+import com.prueba.inventario.entity.Producto;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+// Repository para la entidad Producto
+@Repository
+public interface ProductoRepository extends JpaRepository<Producto, Integer> {
+}

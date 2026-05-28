@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventario</title>
+</head>
+<body>
+<header>
+    <h1>Inventario de Productos</h1>
+</header>
+
+<div sec:authorize="hasRole('ADMINISTRADOR')">
+    <a th:href="@{/nuevo-producto}">
+        <button>Nuevo Producto</button>
+    </a>
+</div>
+
+<br>
+
+<div sec:authorize="hasRole('ADMINISTRADOR')">
+    <a th:href="@{/historial}">
+        <button>Ver Historial</button>
+    </a>
+</div>
+
+
+<br>
+
+<!-- mensajes -->
+<div th:if="${success}">
+    <p th:text="${success}"></p>
+</div>
+
+<div th:if="${error}">
+    <p th:text="${error}"></p>
+</div>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Precio</th>
+            <th>Stock</th>
+            <th>Estatus</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr th:each="producto : ${productos}">
+            <td th:text="${producto.idProducto}"></td>
+            <td th:text="${producto.nombre}"></td>
+            <td th:text="${producto.descripcion}"></td>
+            <td th:text="${producto.precio}"></td>
+            <td th:text="${producto.stock}"></td>
+            <td th:text="${producto.estatus == 1 ? 'Activo' : 'Inactivo'}"></td>
+
+            <td>
+                <div sec:authorize="hasRole('ADMINISTRADOR')">
+                    <a th:href="@{/cambiar-estatus/{id}(id=${producto.idProducto})}">
+                        <button th:text="${producto.estatus == 1 ? 'Desactivar' : 'Reactivar'}"></button>
+                    </a>
+
+                    <a th:href="@{/entrada-producto/{id}(id=${producto.idProducto})}">
+                        <button>Entrada</button>
+                    </a>
+                </div>
+
+                <div sec:authorize="hasRole('ALMACENISTA')">
+                    <a th:if="${producto.estatus == 1}"
+                       th:href="@{/salida-producto/{id}(id=${producto.idProducto})}">
+                        <button>Salida</button>
+                    </a>
+                </div>
+
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<br>
+
+<form th:action="@{/logout}" method="post">
+    <button type="submit">Cerrar sesión</button>
+</form>
+
+</body>
+</html>

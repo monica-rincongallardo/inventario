@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Historial</title>
+</head>
+<body>
+<header>
+    <h1>Historial de Movimientos</h1>
+</header>
+
+<form th:action="@{/historial}" method="get">
+    <label>Filtrar:</label>
+    <select name="tipo">
+        <option value="">Todos</option>
+        <option value="ENTRADA">Entradas</option>
+        <option value="SALIDA">Salidas</option>
+    </select>
+
+    <button type="submit">Filtrar</button>
+</form>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Producto</th>
+        <th>Usuario</th>
+        <th>Tipo</th>
+        <th>Cantidad</th>
+        <th>Fecha</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="movimiento : ${movimientos}">
+        <td th:text="${movimiento.idMovimiento}"></td>
+        <td th:text="${movimiento.producto.nombre}"></td>
+        <td th:text="${movimiento.usuario.nombre}"></td>
+        <td th:text="${movimiento.tipoMovimiento}"></td>
+        <td th:text="${movimiento.cantidad}"></td>
+        <td th:text="${movimiento.fechaMovimiento}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<a th:href="@{/inventario}">Regresar</a>
+
+</body>
+</html>
